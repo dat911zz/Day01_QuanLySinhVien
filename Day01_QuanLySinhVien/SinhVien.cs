@@ -30,7 +30,7 @@ namespace Day01_QuanLySinhVien
         /// <summary>
         /// Get info of SinhVien
         /// </summary>
-        public void getData()
+        public void setData()
         {
             Console.WriteLine("-Nhap thong tin cua sinh vien-");
             Console.Write("\nMa sinh vien: ");
@@ -58,7 +58,7 @@ namespace Day01_QuanLySinhVien
             Console.Write("\nKhoa: ");
             Khoa = Convert.ToString(Console.ReadLine());
         }
-        public void getData(string maSV, string tenSV, string gioiTinh, DateTime ngaySinh, string lop, string khoa)
+        public void setData(string maSV, string tenSV, string gioiTinh, DateTime ngaySinh, string lop, string khoa)
         {
             MaSV = maSV;
             TenSV = tenSV;
@@ -66,6 +66,14 @@ namespace Day01_QuanLySinhVien
             NgaySinh = ngaySinh;
             Lop = lop;
             Khoa = khoa;
+        }
+        public string getTenSV()
+        {
+            return TenSV;
+        }
+        public void getInfoSV()
+        {
+            Console.Write($"\nMSSV: {MaSV}\nHo ten: {TenSV}\nGioi tinh: {GioiTinh}\nNgay sinh: {NgaySinh.ToShortDateString()}\nLop: {Lop}\nKhoa: {Khoa}\n");
         }
         public void dangKyMonHoc(List<MonHoc> list_MH)
         {
@@ -103,6 +111,7 @@ namespace Day01_QuanLySinhVien
         public void showMonHocDaDK()
         {
             Console.Write("\n\t---Cac mon hoc da dang ky---\n");
+            Console.Write($"\nSo luong: {MonHocDK.Count}\n");
             DuongKe();
             showCurrentListMH(MonHocDK);
         }

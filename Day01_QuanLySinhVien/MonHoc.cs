@@ -21,12 +21,12 @@ namespace Day01_QuanLySinhVien
         private double diemTP { get; set; }
         //==================================================================
         //Method
-        public void getMH(string TenMH, int SoTiet)
+        public void setMH(string TenMH, int SoTiet)
         {
             tenMH = TenMH;
             soTiet = SoTiet;
         }
-        public void getDiemMH(double DiemQT, double DiemTP)
+        public void setDiemMH(double DiemQT, double DiemTP)
         {
             DiemQT = diemQT;
             DiemTP = diemTP;

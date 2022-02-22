@@ -35,8 +35,16 @@ namespace Day01_QuanLySinhVien
                         //dssv.showCurrentListMH(dssv.list_MH);
                         //dssv.list_SV[2].dangKyMonHoc(dssv.list_MH);
                         dssv.AutoDKMH_SV("DKHP");
+                        dssv.SearchInfoSV();
                         break;
                     case 4:
+                        dssv.SearchListMHSV();
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
                         break;
                     default:
                         Console.WriteLine("EXIT!");
@@ -60,7 +68,13 @@ namespace Day01_QuanLySinhVien
         }
         static void menu()
         {
-            Console.WriteLine("\n1. Doc File\n2. Xuat danh sach sinh vien\n3. Xuat thong tin sinh vien\n4. UNKNOWN!");
+            Console.Write("\n1. Doc File");
+            Console.Write("\n2. Xuat danh sach sinh vien");
+            Console.Write("\n3. Xuat thong tin sinh vien");
+            Console.Write("\n4. Xem so mon hoc");
+            Console.Write("\n5. Xem so diem mon hoc");
+            Console.Write("\n6. Nhap diem sinh vien");
+            Console.Write("\n6. Xem ket qua hoc tap");
         }
     }
     

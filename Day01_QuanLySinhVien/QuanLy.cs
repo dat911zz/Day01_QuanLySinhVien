@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace Day01_QuanLySinhVien
 {
@@ -48,7 +49,7 @@ namespace Day01_QuanLySinhVien
                     SinhVien x = new SinhVien();
                     string[] data = line[i].Split(' ');
                     //-------------INPUT DATA----------------
-                    x.getData(data[0], data[1], data[2], DateTime.Parse(data[3]), data[4], data[5]);
+                    x.setData(data[0], data[1], data[2], DateTime.Parse(data[3]), data[4], data[5]);
                     //---------------------------------------
                     //Thêm phần tử vào cuối DSLK
                     list_SV.Add(x);
@@ -87,15 +88,11 @@ namespace Day01_QuanLySinhVien
                     MonHoc x = new MonHoc();
                     string[] data = line[i].Split(' ');
                     //-------------INPUT DATA----------------
-                    x.getMH(data[0], int.Parse(data[1]));
+                    x.setMH(data[0], int.Parse(data[1]));
                     //---------------------------------------
                     //Thêm phần tử vào cuối DSLK
                     list_MH.Add(x);
                 }
-                //for (int i = 0; i < line.Length; i++)
-                //{
-                //    Console.WriteLine(line[i]);
-                //}
                 Console.BackgroundColor = ConsoleColor.DarkGreen;
                 Console.WriteLine("\t_[Doc file thanh cong!]_\t");
                 Console.ResetColor();
@@ -137,6 +134,7 @@ namespace Day01_QuanLySinhVien
                             list_SV[i].MonHocDK.Add(list_MH[mh_i]);
                         }
                     }
+                    Thread.Sleep(100);
                     Console.BackgroundColor = ConsoleColor.DarkGreen;
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("Staged {0}: passed",i);
@@ -170,15 +168,79 @@ namespace Day01_QuanLySinhVien
                 list_SV[i].showData();
             }
         }
-
-        public void showInfoSV(string name)
+        public void showListNameSV()
         {
-            SinhVien a = new SinhVien();
-            
+            Console.Write("\n-Danh sach ten SV hien co: ");
+            foreach (var item in list_SV)
+            {
+                Console.Write($"\n\t{item.getTenSV()}");
+            }
         }
-        //----------------------------------------------------------
-        
-        
+        public SinhVien searchNameSV(string name)
+        {
+            foreach (var item in list_SV)
+            {
+                if (string.Equals(item.getTenSV(),name) == true)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        public void SearchInfoSV()
+        {
+          
+            SinhVien x;
+            string name, flag;
+        retype:
+            Console.Clear();
+            showListNameSV();
+            Console.Write("\nVui long nhap ten sinh vien can tim: ");
+            name = Console.ReadLine();
+            x = searchNameSV(name);
+            if ( x == null)
+            {
+                Console.Write("\nVui long nhap lai!");
+                goto retype;
+            }
+            Console.Write("\n\t-=Thong tin cua sinh vien=-");
+            x.getInfoSV();
+            Console.Write("\nBan co muon tim tiep (Y/N): ");
+            flag = Console.ReadLine();
+            if (flag == "Y" || flag == "y")
+            {
+                goto retype;
+            }
+            return;
+        }
+        public void SearchListMHSV()
+        {
+
+            SinhVien x;
+            string name, flag;
+        retype:
+            Console.Clear();
+            showListNameSV();
+            Console.Write("\nVui long nhap ten sinh vien can tim: ");
+            name = Console.ReadLine();
+            x = searchNameSV(name);
+            if (x == null)
+            {
+                Console.Write("\nVui long nhap lai!");
+                goto retype;
+            }
+            Console.Write("\n\t-=Thong tin cac mon hoc cua sinh vien=-");
+            x.showMonHocDaDK();
+            Console.Write("\nBan co muon tim tiep (Y/N): ");
+            flag = Console.ReadLine();
+            if (flag == "Y" || flag == "y")
+            {
+                goto retype;
+            }
+            return;
+        }
+
+
     }
 
     public class Controler
