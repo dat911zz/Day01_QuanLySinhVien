@@ -30,6 +30,8 @@ namespace Day01_QuanLySinhVien
         /// <summary>
         /// Get info of SinhVien
         /// </summary>
+         
+        //Nhập thông tin sinh viên (thủ công)
         public void setData()
         {
             Console.WriteLine("-Nhap thong tin cua sinh vien-");
@@ -58,6 +60,7 @@ namespace Day01_QuanLySinhVien
             Console.Write("\nKhoa: ");
             Khoa = Convert.ToString(Console.ReadLine());
         }
+        //Lấy thông tin sinh viên (random, readfile...)
         public void setData(string maSV, string tenSV, string gioiTinh, DateTime ngaySinh, string lop, string khoa)
         {
             MaSV = maSV;
@@ -67,14 +70,17 @@ namespace Day01_QuanLySinhVien
             Lop = lop;
             Khoa = khoa;
         }
+        //Trả về tên sinh viên
         public string getTenSV()
         {
             return TenSV;
         }
+        //Xuất thông tin sinh viên
         public void getInfoSV()
         {
             Console.Write($"\nMSSV: {MaSV}\nHo ten: {TenSV}\nGioi tinh: {GioiTinh}\nNgay sinh: {NgaySinh.ToShortDateString()}\nLop: {Lop}\nKhoa: {Khoa}\n");
         }
+        //Đăng ký môn học
         public void dangKyMonHoc(List<MonHoc> list_MH)
         {
             string pick;
@@ -95,19 +101,7 @@ namespace Day01_QuanLySinhVien
             showMonHocDaDK();
 
         }
-        //public bool isMonHocDaDK(List<MonHoc> list_MH)
-        //{
-        //    bool flag = false;
-        //    foreach (var item in MonHocDK)
-        //    {
-        //        item.tenMH;
-        //    }
-        //    return flag;
-        //}
-        //public bool searchMH(string mh_name)
-        //{
-        //    return 
-        //}
+        //Xuất danh sách môn học sinh viên đã đăng ký
         public void showMonHocDaDK()
         {
             Console.Write("\n\t---Cac mon hoc da dang ky---\n");
@@ -115,9 +109,12 @@ namespace Day01_QuanLySinhVien
             DuongKe();
             showCurrentListMH(MonHocDK);
         }
-        /// <summary>
-        /// Show info of SinhVien
-        /// </summary>
+        //Nhập điểm cho sinh viên
+        public void inputScoreSV()
+        {
+
+        }
+        //Xuất thông tin sinh viên (theo hàng ngang)
         public void showData()
         {
             Console.Write("\n{0,-11}\t{1,-18}\t{2,-3}\t{3}/{4}/{5}\t{6,-11}\t{7}", this.MaSV, this.TenSV, this.GioiTinh, this.NgaySinh.Day, this.NgaySinh.Month, this.NgaySinh.Year, this.Lop, this.Khoa);

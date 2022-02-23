@@ -27,20 +27,22 @@ namespace Day01_QuanLySinhVien
                         fname = Console.ReadLine();
                         dssv.ReadFile_SV(fname);
                         dssv.ReadFile_MH("MonHoc");
+                        dssv.AutoDKMH_SV("DKHP");
                         break;
                     case 2:
                         dssv.showListSV();
                         break;
                     case 3:
                         //dssv.showCurrentListMH(dssv.list_MH);
-                        //dssv.list_SV[2].dangKyMonHoc(dssv.list_MH);
-                        dssv.AutoDKMH_SV("DKHP");
+                        //dssv.list_SV[2].dangKyMonHoc(dssv.list_MH);                      
                         dssv.SearchInfoSV();
                         break;
                     case 4:
                         dssv.SearchListMHSV();
                         break;
                     case 5:
+                        dssv.AutoImportScoreSV();
+                        dssv.ShowListScoreSV();
                         break;
                     case 6:
                         break;
@@ -53,18 +55,6 @@ namespace Day01_QuanLySinhVien
                 Console.ReadLine();
                 Console.Clear();
             } while (chon > 0 && chon < 9);
-
-            //Console.Write("Nhap so luong sinh vien: ");
-            //int n = int.Parse(Console.ReadLine());
-
-            //for (int i = 0; i < n; i++)
-            //{
-            //    SinhVien tmp = new SinhVien();
-            //    tmp.getData();
-            //    sv.Add(tmp);
-            //}
-            
-
         }
         static void menu()
         {
@@ -74,7 +64,7 @@ namespace Day01_QuanLySinhVien
             Console.Write("\n4. Xem so mon hoc");
             Console.Write("\n5. Xem so diem mon hoc");
             Console.Write("\n6. Nhap diem sinh vien");
-            Console.Write("\n6. Xem ket qua hoc tap");
+            Console.Write("\n7. Xem ket qua hoc tap");
         }
     }
     

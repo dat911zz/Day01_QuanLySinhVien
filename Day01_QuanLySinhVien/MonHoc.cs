@@ -7,7 +7,7 @@ namespace Day01_QuanLySinhVien
     /// <summary>
     /// Class of MonHoc
     /// </summary>
-    public class MonHoc
+    public class MonHoc : ICloneable
     {
         //==================================================================
         //Contructor & Destructor
@@ -21,35 +21,55 @@ namespace Day01_QuanLySinhVien
         private double diemTP { get; set; }
         //==================================================================
         //Method
+        //Lấy dữ liệu của môn học
         public void setMH(string TenMH, int SoTiet)
         {
             tenMH = TenMH;
             soTiet = SoTiet;
         }
+        //Lấy điểm môn học (sinh viên)
         public void setDiemMH(double DiemQT, double DiemTP)
         {
-            DiemQT = diemQT;
-            DiemTP = diemTP;
+            diemQT = DiemQT;
+            diemTP = DiemTP;
         }
+        //Form thông tin môn học (quản lý)
         public void showInfoMH()
         {
             Console.Write("\n{0,-21}\t{1,-5}",tenMH, soTiet);
         }
+        //Form thông tin môn học sinh viên đã đăng ký (sinh viên)
         public void showInfoMH_DK()
         {
             Console.Write("\nTen mon: {0}\nSo tiet: {1}\n", tenMH, soTiet);
         }
+        //Form thông tin môn học sinh viên đã đăng ký kèm điểm (sinh viên)
         public void showInfoMH_SV()
         {
-            Console.Write($"\nTen mon hoc: {tenMH}\nSo tiet: {soTiet}\nDiem qua trinh: {diemQT}\nDiem tong ket: {diemTongKet()}\nKet qua: {(isPass() == true ? "Dau" : "Rot")}");
+            Console.Write("\t{0,-21}\t{1}\t\t{2}\t{3}\t{4}\t{5}",tenMH,soTiet,diemTP,diemQT,diemTongKet(), (isPass() == true ? "Dau" : "Rot"));
         }
+        //Tính điểm tổng kết
         public double diemTongKet()
         {
             return (diemQT + diemTP) / 2;
         }
+        //Kiểm tra sinh viên đậu hay rớt môn đã chọn
         public bool isPass()
         {
             return diemTongKet() >= 4;
+        }
+
+        //------------------------
+        // This is a deep copy implementation of Clone
+        public object Clone()
+        {
+            return new MonHoc
+            {
+                tenMH = this.tenMH,
+                soTiet = this.soTiet,
+                diemTP = this.diemTP,
+                diemQT = this.diemQT,
+            };
         }
     }
 }

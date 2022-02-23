@@ -12,19 +12,20 @@ namespace Day01_QuanLySinhVien
         //==================================================================
         //Contructor & Destructor
         public QuanLy() { }
-        ~ QuanLy() { }
+        ~QuanLy() { }
         //==================================================================
         //Properties
         public List<SinhVien> list_SV = new List<SinhVien>();
         public List<MonHoc> list_MH = new List<MonHoc>();
-        
         //==================================================================
         //Method
         //----------------------------------------------------------
         /// <summary>
-        /// Get data from file
+        /// Import data from file
         /// </summary>
         /// <param name="list"></param>
+        
+        //Đọc file sinh viên
         public void ReadFile_SV(string fname)
         {
             string[] line;
@@ -64,6 +65,7 @@ namespace Day01_QuanLySinhVien
                 return;
             }
         }
+        //Đọc file môn học
         public void ReadFile_MH(string fname)
         {
             string[] line;
@@ -103,6 +105,7 @@ namespace Day01_QuanLySinhVien
                 return;
             }
         }
+        //Auto đăng ký học phần
         public void AutoDKMH_SV(string fname)
         {
             string[] line;
@@ -125,23 +128,28 @@ namespace Day01_QuanLySinhVien
                 for (int i = 0; i < line.Length; ++i)
                 {
                     string[] data = line[i].Split(' ');
+                    List<MonHoc> tmp = new List<MonHoc>(list_MH.ToArray());
                     //-------------INPUT DATA----------------
                     //SinhVien x = new SinhVien();
                     for (int mh_i = 0; mh_i < data.Length; mh_i++)
                     {
+                        
+
                         if (data[mh_i].ToString() == "1")
                         {
-                            list_SV[i].MonHocDK.Add(list_MH[mh_i]);
+                            //========Deep copy========= 
+                            var c = tmp[mh_i].Clone();
+                            list_SV[i].MonHocDK.Add((MonHoc)c);
                         }
                     }
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                     Console.BackgroundColor = ConsoleColor.DarkGreen;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Staged {0}: passed",i);
+                    Console.Write("\tStaged {0}: passed", i);
                     Console.ResetColor();
                     Console.WriteLine();
                 }
-                
+
             }
             catch (IOException e)
             {
@@ -149,8 +157,26 @@ namespace Day01_QuanLySinhVien
                 return;
             }
         }
+        //Auto nhập điểm sinh viên
+        public void AutoImportScoreSV()
+        {
+            Random score1 = new Random();
+            Random score2 = new Random();
+
+            for (int i = 0; i < list_SV.Count; i++)
+            {
+                for (int j = 0; j < list_SV[i].MonHocDK.Count; j++)
+                {
+                    list_SV[i].MonHocDK[j].setDiemMH(score1.Next(1, 10), score2.Next(2, 10));
+                }
+            }
+        }
         //----------------------------------------------------------
+        /// <summary>
+        /// Functions
+        /// </summary>
         
+        //Hiện danh sách sinh viên
         public void showListSV()
         {
             Console.WriteLine("\n\t\t\t-Danh sach sinh vien-");
@@ -168,6 +194,7 @@ namespace Day01_QuanLySinhVien
                 list_SV[i].showData();
             }
         }
+        //Hiện danh sách tên sinh viên
         public void showListNameSV()
         {
             Console.Write("\n-Danh sach ten SV hien co: ");
@@ -176,20 +203,22 @@ namespace Day01_QuanLySinhVien
                 Console.Write($"\n\t{item.getTenSV()}");
             }
         }
+        //Module tìm tên sinh viên
         public SinhVien searchNameSV(string name)
         {
             foreach (var item in list_SV)
             {
-                if (string.Equals(item.getTenSV(),name) == true)
+                if (string.Equals(item.getTenSV(), name) == true)
                 {
                     return item;
                 }
             }
             return null;
         }
+        //Tìm thông tin sinh viên
         public void SearchInfoSV()
         {
-          
+
             SinhVien x;
             string name, flag;
         retype:
@@ -198,7 +227,7 @@ namespace Day01_QuanLySinhVien
             Console.Write("\nVui long nhap ten sinh vien can tim: ");
             name = Console.ReadLine();
             x = searchNameSV(name);
-            if ( x == null)
+            if (x == null)
             {
                 Console.Write("\nVui long nhap lai!");
                 goto retype;
@@ -213,6 +242,7 @@ namespace Day01_QuanLySinhVien
             }
             return;
         }
+        //Tìm thông tin các môn học của sinh viên
         public void SearchListMHSV()
         {
 
@@ -239,10 +269,31 @@ namespace Day01_QuanLySinhVien
             }
             return;
         }
-
-
+        //Xuất danh sách điểm của toàn bộ sinh viên
+        public void ShowListScoreSV()
+        {
+            Console.Write("\n\t\t\t-=Danh sach diem cua SV=-");
+            for (int i = 0; i < list_SV.Count; i++)
+            {
+                Console.Write($"\n\n\t\t\t   -Sinh vien: {list_SV[i].getTenSV()}-\n\n");
+                Khuon_MH_Full();
+                for (int j = 0; j < list_SV[i].MonHocDK.Count; j++)
+                {
+                    if (list_SV[i].MonHocDK[j].isPass() == false)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    }
+                    list_SV[i].MonHocDK[j].showInfoMH_SV();
+                    Console.ResetColor();
+                    Console.WriteLine();
+                }
+            }
+        }
     }
 
+    /// <summary>
+    /// Class phụ 
+    /// </summary>
     public class Controler
     {
         public void DuongKe()
@@ -261,6 +312,12 @@ namespace Day01_QuanLySinhVien
         {
             Console.Write("Ten MH\t\t\tSo tiet\n");
             DuongKe();
+        }
+        public void Khuon_MH_Full()
+        {
+            Console.Write("\tTen MH\t\t\tSo tiet\t  Diem: TP\tQT\tTK\tKet qua\n");
+            DuongKe();
+            Console.WriteLine();
         }
         public void showCurrentListMH(List<MonHoc> list_MH)
         {
