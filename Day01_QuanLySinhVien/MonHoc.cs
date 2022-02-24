@@ -58,6 +58,43 @@ namespace Day01_QuanLySinhVien
         {
             return diemTongKet() >= 4;
         }
+        //Nhập điểm môn học
+        public void inputScoreMH()
+        {
+            var tmp = 0.0;
+        checkpoint1:
+            Console.Write("\nNhap diem thanh phan: ");
+            if (double.TryParse(Console.ReadLine(), out tmp) == false)
+            {
+                Console.Write("Vui long nhap lai!");
+                goto checkpoint1;
+            }
+            else
+            {
+                if (tmp < 0 || tmp > 10)
+                {
+                    Console.Write("Vui long nhap lai!");
+                    goto checkpoint1;
+                }
+            }
+            diemTP = tmp;
+        checkpoint2:
+            Console.Write("\nNhap diem qua trinh: ");
+            if (double.TryParse(Console.ReadLine(), out tmp) == false)
+            {
+                Console.Write("Vui long nhap lai!");
+                goto checkpoint2;
+            }
+            else
+            {
+                if (tmp < 0 || tmp > 10)
+                {
+                    Console.Write("Vui long nhap lai!");
+                    goto checkpoint2;
+                }
+            }
+            diemQT = tmp;
+        }
 
         //------------------------
         // This is a deep copy implementation of Clone

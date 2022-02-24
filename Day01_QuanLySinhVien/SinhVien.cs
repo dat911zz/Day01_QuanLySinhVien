@@ -109,10 +109,42 @@ namespace Day01_QuanLySinhVien
             DuongKe();
             showCurrentListMH(MonHocDK);
         }
+        //Tìm môn học trong danh sách đã đăng ký
+        public MonHoc searchMonHocDaDK(string name)
+        {
+            foreach (var item in MonHocDK)
+            {
+                if (string.Equals(item.tenMH, name) == true)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
         //Nhập điểm cho sinh viên
         public void inputScoreSV()
         {
-
+            MonHoc x;
+            string name, flag;
+        retype:
+            Console.Clear();
+            showMonHocDaDK();
+            Console.Write("\nVui long nhap ten mon hoc can nhap diem: ");
+            name = Console.ReadLine();
+            x = searchMonHocDaDK(name);
+            if (x == null)
+            {
+                Console.Write("\nVui long nhap lai!");
+                goto retype;
+            }
+            Console.Write("\n\t-=Thong tin cua sinh vien=-");
+            x.inputScoreMH();
+            Console.Write("\nBan co muon nhap diem mon khac (Y/N): ");
+            flag = Console.ReadLine();
+            if (flag == "Y" || flag == "y")
+            {
+                goto retype;
+            }
         }
         //Xuất thông tin sinh viên (theo hàng ngang)
         public void showData()

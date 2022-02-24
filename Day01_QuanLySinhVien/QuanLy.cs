@@ -289,6 +289,69 @@ namespace Day01_QuanLySinhVien
                 }
             }
         }
+        //Nhập điểm cho sinh viên
+        public void ImportScoreSV()
+        {
+            SinhVien x;
+            string name, flag;
+        retype:
+            Console.Clear();
+            showListNameSV();
+            Console.Write("\nVui long nhap ten sinh vien can nhap diem: ");
+            name = Console.ReadLine();
+            x = searchNameSV(name);
+            if (x == null)
+            {
+                Console.Write("\nVui long nhap lai!");
+                goto retype;
+            }
+            x.inputScoreSV();
+            Console.Write("\nBan co muon nhap diem cho sinh vien khac (Y/N): ");
+            flag = Console.ReadLine();
+            if (flag == "Y" || flag == "y")
+            {
+                goto retype;
+            }
+            return;
+        }
+        //Xem kết quả trượt/đỗ của sinh viên
+        public void CheckPassedMH()
+        {
+            SinhVien x;
+            string name, flag;
+        retype:
+            Console.Clear();
+            showListNameSV();
+            Console.Write("\nVui long nhap ten sinh vien can kiem tra: ");
+            name = Console.ReadLine();
+            x = searchNameSV(name);
+            if (x == null)
+            {
+                Console.Write("\nVui long nhap lai!");
+                goto retype;
+            }
+
+            Console.Write($"\n\n\t\t\t   -Sinh vien: {x.getTenSV()}-\n\n");
+            Khuon_MH_Full();
+            for (int i = 0; i < x.MonHocDK.Count; i++)
+            {
+                if (x.MonHocDK[i].isPass() == false)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                x.MonHocDK[i].showInfoMH_SV();
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+
+            Console.Write("\nBan co muon coi ket qua cua sinh vien khac (Y/N): ");
+            flag = Console.ReadLine();
+            if (flag == "Y" || flag == "y")
+            {
+                goto retype;
+            }
+            return;
+        }
     }
 
     /// <summary>

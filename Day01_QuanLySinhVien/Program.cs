@@ -20,6 +20,7 @@ namespace Day01_QuanLySinhVien
                 {
                     return;
                 }
+                Console.Clear();
                 switch (chon)
                 {
                     case 1:
@@ -28,6 +29,7 @@ namespace Day01_QuanLySinhVien
                         dssv.ReadFile_SV(fname);
                         dssv.ReadFile_MH("MonHoc");
                         dssv.AutoDKMH_SV("DKHP");
+                        dssv.AutoImportScoreSV();
                         break;
                     case 2:
                         dssv.showListSV();
@@ -40,13 +42,14 @@ namespace Day01_QuanLySinhVien
                     case 4:
                         dssv.SearchListMHSV();
                         break;
-                    case 5:
-                        dssv.AutoImportScoreSV();
+                    case 5:                       
                         dssv.ShowListScoreSV();
                         break;
                     case 6:
+                        dssv.ImportScoreSV();
                         break;
                     case 7:
+                        dssv.CheckPassedMH();
                         break;
                     default:
                         Console.WriteLine("EXIT!");
@@ -58,13 +61,19 @@ namespace Day01_QuanLySinhVien
         }
         static void menu()
         {
-            Console.Write("\n1. Doc File");
-            Console.Write("\n2. Xuat danh sach sinh vien");
-            Console.Write("\n3. Xuat thong tin sinh vien");
-            Console.Write("\n4. Xem so mon hoc");
-            Console.Write("\n5. Xem so diem mon hoc");
-            Console.Write("\n6. Nhap diem sinh vien");
-            Console.Write("\n7. Xem ket qua hoc tap");
+            Console.Write("\n     ========Chuong trinh quan ly sinh vien========");
+            Console.Write("\n\t\t1. Doc File");
+            Console.Write("\n\t\t2. Xuat danh sach sinh vien");
+            Console.Write("\n\t\t3. Xuat thong tin sinh vien");
+            Console.Write("\n\t\t4. Xem so mon hoc");
+            Console.Write("\n\t\t5. Xem so diem mon hoc");
+            Console.Write("\n\t\t6. Nhap diem sinh vien");
+            Console.Write("\n\t\t7. Xem ket qua hoc tap\n");
+            for (int i = 0; i < 100; i++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
         }
     }
     
